@@ -3,9 +3,14 @@ import { List } from 'immutable'
 import { Point, PointSet, makePointString } from '../../Point'
 
 const makePolygon =
+  (xOffset: number, yOffset: number, points: PointSet) => (
+    <polygon points={ makePointString(points, xOffset, yOffset) } />
+)
+
+const makeProvincePolygon =
   (fill: string, xOffset: number, yOffset: number, points: PointSet) => (
     <polygon points={ makePointString(points, xOffset, yOffset) } 
-             fill={ fill } />
+             fill={ fill } className="province" />
 )
 
 export const Alberta = ({ fill }) => {
@@ -31,14 +36,14 @@ export const Alberta = ({ fill }) => {
     new Point(154.997, 158.681), new Point(146.503, 194.181),
     new Point(130.667, 260.181), new Point(114.183, 325.540),
     new Point( 99.500, 321.702))
-  return makePolygon(fill, xOffset, yOffset, points)
+  return makeProvincePolygon(fill, xOffset, yOffset, points)
 }
 
 export const BC = ({ fill }) => {
   const xOffset = 0 // fullsize: 971.343
   const yOffset = 0 // fullsize: 585.792
-  return <g>
-    { makePolygon(fill, xOffset, yOffset, List.of(
+  return <g className="province" fill={ fill }>
+    { makePolygon(xOffset, yOffset, List.of(
       new Point(75.657, 389.948), new Point(59.657, 369.021),
       new Point(56.721, 364.926), new Point(50.169, 353.708),
       new Point(47.279, 347.208), new Point(43.274, 339.208),
@@ -51,7 +56,7 @@ export const BC = ({ fill }) => {
       new Point(88.168, 387.239), new Point(88.914, 391.618),
       new Point(75.657, 389.948))) }
 
-    { makePolygon(fill, xOffset, yOffset, List.of(
+    { makePolygon(xOffset, yOffset, List.of(
       new Point(234.157, 427.643), new Point(196.657, 415.988),
       new Point(108.657, 382.996), new Point( 98.157, 378.978),
       new Point( 93.672, 371.948), new Point( 91.557, 366.448),
@@ -89,7 +94,7 @@ export const BC = ({ fill }) => {
       new Point(233.299, 407.082), new Point(234.424, 424.974),
       new Point(234.157, 427.643))) }
   
-    { makePolygon(fill, xOffset, yOffset, List.of(
+    { makePolygon(xOffset, yOffset, List.of(
       new Point( 4.897, 238.941), new Point( 0.000, 202.349),
       new Point( 1.860, 186.463), new Point( 3.142, 183.322),
       new Point(11.487, 183.529), new Point(22.657, 194.634),
