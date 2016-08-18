@@ -1,14 +1,19 @@
 {
   "name": "geography",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Interactive map of Canada",
   "main": "webpack.config.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "postinstall": "typings install"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Kyle Brown <picokyle@gmail.com>",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kybp/geography.git"
+  },
   "dependencies": {
     "babel-core": "^6.13.2",
     "babel-loader": "^6.2.4",
