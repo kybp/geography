@@ -1,14 +1,10 @@
 // -*- typescript -*-
 import * as React from 'react'
 import { render } from 'react-dom'
-import NorthAmerica from './maps/na'
-
-const SVG_HEIGHT = 1245
-const SVG_WIDTH  = 1285
+import Canada from './maps/na/ca'
 
 render(
-  <svg height={ SVG_HEIGHT } width={ SVG_WIDTH } style={{
-    background: 'lightblue'
-  }}><NorthAmerica /></svg>,
+  <svg viewBox="0 0 1285 1245" height={ 300 } width={ 300 } 
+       style={{ background: 'lightblue' }}><Canada /></svg>,
   document.getElementById('app')
 )
