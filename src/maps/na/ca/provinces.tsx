@@ -14,9 +14,7 @@ const makeProvincePolygon =
              fill={ fill } className="province" />
 )
 
-export const AB = ({ fill }) => {
-  const xOffset = 188.657
-  const yOffset = 697.656
+export const AB = ({ fill, xOffset, yOffset }) => {
   const points: PointSet = List.of(
     new Point( 99.500, 321.702), new Point( 48.563, 302.641),
     new Point( 45.884, 296.673), new Point( 48.056, 285.621),
@@ -40,9 +38,7 @@ export const AB = ({ fill }) => {
   return makeProvincePolygon(fill, xOffset, yOffset, points)
 }
 
-export const BC = ({ fill }) => {
-  const xOffset = 0
-  const yOffset = 577.129
+export const BC = ({ fill, xOffset, yOffset }) => {
   return <g className="province" fill={ fill }>
     { makePolygon(xOffset, yOffset, List.of(
         new Point( 75.657, 389.948), new Point( 59.657, 369.021),
@@ -104,9 +100,7 @@ export const BC = ({ fill }) => {
   </g>
 }
 
-export const MB = ({ fill }) => {
-  const xOffset = 455.157
-  const yOffset = 757.181
+export const MB = ({ fill, xOffset, yOffset }) => {
   const points = List.of(
     new Point( 26.719,   0.000), new Point( 26.000,   6.312),
     new Point( 25.000,  14.156), new Point( 24.000,  21.156),
@@ -144,9 +138,7 @@ export const MB = ({ fill }) => {
   return makeProvincePolygon(fill, xOffset, yOffset, points)
 }
 
-export const SK = ({ fill }) => {
-  const xOffset = 307.102
-  const yOffset = 737.73
+export const SK = ({ fill, xOffset, yOffset }) => {
   const points = List.of(
     new Point(141.472, 312.220), new Point(133.055, 311.158),
     new Point(122.555, 310.113), new Point(113.555, 309.107),
@@ -183,9 +175,7 @@ export const SK = ({ fill }) => {
   return makeProvincePolygon(fill, xOffset, yOffset, points)
 }
 
-export const ON = ({ fill }) => {
-  const xOffset = 558.263
-  const yOffset = 853.837
+export const ON = ({ fill, xOffset, yOffset }) => {
   const points = List.of(
     new Point(219.865, 386.556), new Point(225.100, 383.135),
     new Point(230.179, 381.670), new Point(231.438, 372.527),
@@ -251,9 +241,7 @@ export const ON = ({ fill }) => {
   return makeProvincePolygon(fill, xOffset, yOffset, points)
 }
 
-export const QC = ({ fill }) => {
-  const xOffset = 793.343
-  const yOffset = 674.36
+export const QC = ({ fill, xOffset, yOffset }) => {
   return <g className="province" fill={ fill }>
     { makePolygon(xOffset, yOffset, List.of(
         new Point(134.112, 462.212), new Point(132.086, 455.962),
@@ -353,9 +341,7 @@ export const QC = ({ fill }) => {
     </g>
 }
 
-export const NU = ({ fill }) => {
-  const xOffset = 323.649
-  const yOffset = 0
+export const NU = ({ fill, xOffset, yOffset }) => {
   return <g className="province" fill={ fill }>
     { makePolygon(xOffset, yOffset, List.of(
         new Point(177.508, 500.410), new Point(159.950, 490.248),
@@ -860,9 +846,7 @@ export const NU = ({ fill }) => {
   </g>
 }
 
-export const YT = ({ fill }) => {
-  const xOffset = 3.11800000000005
-  const yOffset = 329.488
+export const YT = ({ fill, xOffset, yOffset }) => {
   const points = List.of(
     new Point(185.979, 342.524), new Point(176.539, 337.878),
     new Point(112.865, 304.826), new Point( 29.289, 252.885),
@@ -894,9 +878,7 @@ export const YT = ({ fill }) => {
   return makeProvincePolygon(fill, xOffset, yOffset, points)
 }
 
-export const NB = ({ fill }) => {
-  const xOffset = 1019.415
-  const yOffset = 1026.587
+export const NB = ({ fill, xOffset, yOffset }) => {
   const points = List.of(
     new Point( 38.815,  81.027), new Point( 32.162,  73.487),
     new Point( 28.766,  70.167), new Point( 18.237,  42.750),
@@ -914,9 +896,7 @@ export const NB = ({ fill }) => {
   return makeProvincePolygon(fill, xOffset, yOffset, points)
 }
 
-export const NS = ({ fill }) => {
-  const xOffset = 1080.608
-  const yOffset = 1023.337
+export const NS = ({ fill, xOffset, yOffset }) => {
   return <g className="province" fill={ fill }>
     { makePolygon(xOffset, yOffset, List.of(
         new Point( 11.709, 116.678), new Point(  0.658, 103.828),
@@ -943,9 +923,7 @@ export const NS = ({ fill }) => {
  </g>
 }
 
-export const NL = ({ fill }) => {
-  const xOffset = 982.067 
-  const yOffset = 703.593
+export const NL = ({ fill, xOffset, yOffset }) => {
   return <g className="province" fill={ fill }>
     { makePolygon(xOffset, yOffset, List.of(
         new Point(187.710, 294.170), new Point(187.920, 282.427),
@@ -1036,9 +1014,7 @@ export const NL = ({ fill }) => {
   </g>
 }
 
-export const PE = ({ fill }) => {
-  const xOffset = 1094.626
-  const yOffset = 1045.337
+export const PE = ({ fill, xOffset, yOffset }) => {
   const points = List.of(
     new Point( 34.701,  17.337), new Point( 25.854,  16.454),
     new Point( 12.031,  14.480), new Point(  2.031,  12.061),
@@ -1050,9 +1026,7 @@ export const PE = ({ fill }) => {
   return makeProvincePolygon(fill, xOffset, yOffset, points)
 }
 
-export const NT = ({ fill }) => {
-  const xOffset = 152.095
-  const yOffset = 169.293
+export const NT = ({ fill, xOffset, yOffset }) => {
   return <g className="province" fill={ fill }>
     { makePolygon(xOffset, yOffset, List.of(
         new Point( 48.625, 196.294), new Point( 41.000, 197.013),
