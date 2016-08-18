@@ -2,8 +2,5 @@
   "globalDependencies": {
     "react": "registry:dt/react#0.14.0+20160805125551",
     "react-dom": "registry:dt/react-dom#0.14.0+20160412154040"
-  },
-  "dependencies": {
-    "immutable": "registry:npm/immutable#3.7.6+20160411060006"
   }
 }
