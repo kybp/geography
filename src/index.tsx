@@ -1,12 +1,14 @@
-// -*- typescript -*-
+// -*- web -*-
 import * as React from 'react'
 import { render } from 'react-dom'
-import Canada from './maps/na/ca'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import reducer from './reducers'
+import QuizDisplay from './QuizDisplay'
 
 render(
-  <svg viewBox="0 0 1285 1245" height={ 300 } width={ 300 } 
-       style={{ background: 'lightblue' }}>
-    <Canada xOffset={ 0 } yOffset={ 0 } />
-  </svg>,
+  <Provider store={ createStore(reducer) }>
+    <QuizDisplay targetProvince="" />
+  </Provider>,
   document.getElementById('app')
 )
