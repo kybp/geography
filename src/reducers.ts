@@ -1,33 +1,50 @@
 import { List, Map } from 'immutable'
 import * as _ from 'lodash'
 import { combineReducers } from 'redux'
-import { UNANSWERED, fullProvinceList } from './Province'
-import Province from './Province'
+import Question, { UNANSWERED } from './Question'
 import QuizDisplay from './QuizDisplay'
-import { SELECT_PROVINCE } from './actions'
+import { SELECT_CLICKABLE } from './actions'
 
 interface ProvinceQuizState {
-  provinces: Province[],
-  answer:    Province
+  currentQuestion: Question,
+  otherQuestions:  Question[],
+  finished:        boolean,
 }
 
-const nextAnswer = (provinces = fullProvinceList()) => {
-  const answer = _.sample(_.filter(provinces, (province: Province) => (
-    province.drawnState === UNANSWERED
+const fullQuestionList = [
+  new Question('Alberta',                   'ab'),
+  new Question('British Columbia',          'bc'),
+  new Question('Manitoba',                  'mb'),
+  new Question('Ontario',                   'on'),
+  new Question('New Brunswick',             'nb'),
+  new Question('Newfoundland and Labrador', 'nl'),
+  new Question('Northwest Territories',     'nt'),
+  new Question('Nova Scotia',               'ns'),
+  new Question('Nunavut',                   'nu'),
+  new Question('Prince Edward Island',      'pe'),
+  new Question('Québec',                    'qc'),
+  new Question('Saskatchewan',              'sk'),
+  new Question('Yukon',                     'yt')
+]
+
+const nextQuestion = (questions = fullQuestionList) => {
+  const selected = _.sample(_.filter(questions, (question: Question) => (
+    question.drawnState === UNANSWERED
   )))
-  return { answer, provinces: _.without(provinces, answer) }
+  return { otherQuestions:  _.without(questions, selected),
+           currentQuestion: selected,
+           finished:        selected === undefined }
 }
 
-const provinceQuiz = (state = nextAnswer(), action: any) => {
-  const { answer, provinces } = state
+const provinceQuiz = (state = nextQuestion(), action: any) => {
+  const { currentQuestion, otherQuestions } = state
 
   switch (action.type) {
-  case SELECT_PROVINCE:
-    const answerIndex = provinces.indexOf(answer)
-    const wasCorrect  = action.elementId === answer.elementId
-    return nextAnswer(provinces.slice(0, answerIndex).concat(
-      [wasCorrect ? answer.getRight() : answer.getWrong()],
-      provinces.slice(answerIndex)
+
+  case SELECT_CLICKABLE:
+    const wasCorrect = action.elementId === currentQuestion.elementId
+    return nextQuestion(otherQuestions.concat(
+      wasCorrect ? currentQuestion.getRight() : currentQuestion.getWrong()
     ))
 
   default:

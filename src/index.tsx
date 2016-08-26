@@ -8,7 +8,7 @@ import QuizDisplay from './QuizDisplay'
 
 render(
   <Provider store={ createStore(reducer) }>
-    <QuizDisplay targetProvince="" />
+    <QuizDisplay />
   </Provider>,
   document.getElementById('app')
 )
