@@ -9,12 +9,12 @@ import { RUNNING } from './QuizDisplay'
 import points from './points'
 
 interface Props {
-  id:              string,
-  displayName:     string,
-  xOffset:         number,
-  yOffset:         number,
-  dispatch?:       (action: any) => void,
-  provinceStates?: { [key: string]: string },
+  id:          string,
+  displayName: string,
+  xOffset:     number,
+  yOffset:     number,
+  dispatch?:   (action: any) => void,
+  drawnState?: string,
 }
 
 class Clickable extends React.Component<Props, {}> {
@@ -24,10 +24,9 @@ class Clickable extends React.Component<Props, {}> {
   }
 
   render() {
-    const { id, xOffset, yOffset, dispatch, provinceStates } = this.props
+    const { id, xOffset, yOffset, dispatch, drawnState } = this.props
 
-    const drawnState = provinceStates[id]
-    if (drawnState === undefined) return null
+    if (drawnState === null) return null
 
     const className  = "clickable " + drawnState.toLowerCase()
 
@@ -48,19 +47,18 @@ class Clickable extends React.Component<Props, {}> {
   }
 }
 
-const mapStateToProps = ({ provinceQuiz }) => {
-  let allQuestions = provinceQuiz.otherQuestions.slice()
+const mapStateToProps = ({ provinceQuiz }, { id }) => {
   if (provinceQuiz.phase === RUNNING) {
-    allQuestions.push(provinceQuiz.currentQuestion)
+    if (provinceQuiz.currentQuestion.elementId === id) {
+      return { drawnState: UNANSWERED }
+    }
   }
 
-  const result: { [key: string]: string } = {}
+  const us = _.filter(provinceQuiz.otherQuestions, (question: Question) => (
+    question.elementId === id
+  ))[0]
 
-  _.forEach(allQuestions, (question: Question) => {
-    result[question.elementId] = question.drawnState
-  })
-
-  return { provinceStates: result }
+  return { drawnState: us === undefined ? null : us.drawnState }
 }
 
 export default connect(mapStateToProps)(Clickable)
