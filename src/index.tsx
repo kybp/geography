@@ -5,10 +5,13 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import reducer from './reducers'
 import QuizDisplay from './QuizDisplay'
+import Canada from './Canada'
 
 render(
   <Provider store={ createStore(reducer) }>
-    <QuizDisplay />
+    <QuizDisplay>
+      <Canada xOffset={ 0 } yOffset={ 0 } />
+    </QuizDisplay>
   </Provider>,
   document.getElementById('app')
 )
