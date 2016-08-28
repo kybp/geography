@@ -6,6 +6,7 @@ import { createStore } from 'redux'
 import reducer from './reducers'
 import QuizDisplay from './QuizDisplay'
 import Canada from './Canada'
+import './style.css'
 
 render(
   <Provider store={ createStore(reducer) }>

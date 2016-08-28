@@ -12,7 +12,7 @@ module.exports = {
     filename: bundleName
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['', '.js', '.jsx', '.ts', '.tsx', '.css'],
     root: [sourceDir]
   },
   module: {
@@ -20,6 +20,10 @@ module.exports = {
       test:    /\.tsx?$/,
       exclude: /node_modules/,
       loader:  'babel-loader!ts-loader'
+    }, {
+      test:    /\.css$/,
+      exclude: /node_modules/,
+      loader:  'style-loader!css-loader'
     }]
   },
   plugins: [

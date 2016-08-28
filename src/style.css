@@ -1,0 +1,42 @@
+body {
+    font-family: helvetica;
+    background:  antiquewhite;
+}
+
+.unselectable {
+    -webkit-user-select: none;
+    -moz-user-select:    none;
+    -ms-user-select:     none;
+    user-select:         none;
+}
+
+.flex-column {
+    display:         flex;
+    flex-direction:  column;
+    align-items:     center;
+    justify-content: center;
+    margin-bottom:   auto;
+}
+
+.map {
+    background:    lightblue;
+    width:         600px;
+    height:        600px;
+    border-radius: 50px;
+}
+
+.clickable.unanswered {
+    fill: black;
+}
+
+.clickable.unanswered:hover {
+    fill: #128;
+}
+
+.clickable.right {
+    fill: green;
+}
+
+.clickable.wrong {
+    fill: red;
+}
