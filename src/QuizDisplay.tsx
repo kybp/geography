@@ -29,9 +29,16 @@ class QuizDisplay extends React.Component<Props, {}> {
 
     if (phase === NOT_STARTED) {
       return (
-        <button onClick={ () => dispatch(loadQuiz()) }>
-          Start Quiz
-        </button>
+        <div className="flex-column">
+          <h1 className="unselectable">Canadian Province Quiz</h1>
+
+          <div className="map" onClick={ () => dispatch(loadQuiz()) } style={{
+            fontSize:      '20pt',
+            lineHeight:    '600px',
+            textAlign:     'center',
+            verticalAlign: 'middle'
+          }}>Click here to start quiz</div>
+        </div>
       )
     }
 
@@ -49,10 +56,9 @@ class QuizDisplay extends React.Component<Props, {}> {
     }
 
     return (
-      <div>
-        <h1>{ message }</h1>
-        <svg viewBox="0 0 1285 1245" height={ 300 } width={ 300 }
-             style={{ background: 'lightblue' }}>
+      <div className="flex-column">
+        <h1 className="unselectable">{ message }</h1>
+        <svg viewBox="0 0 1285 1245" className="map">
           { this.props.children }
         </svg>
       </div>
