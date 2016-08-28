@@ -11,18 +11,10 @@ body {
 }
 
 .flex-column {
-    display:         flex;
-    flex-direction:  column;
-    align-items:     center;
-    justify-content: center;
-    margin-bottom:   auto;
-}
-
-.map {
-    background:    lightblue;
-    width:         600px;
-    height:        600px;
-    border-radius: 50px;
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    margin-bottom:  auto;
 }
 
 .clickable.unanswered {
@@ -39,4 +31,19 @@ body {
 
 .clickable.wrong {
     fill: red;
+}
+
+.header {
+    letter-spacing: 2px;
+}
+
+.map {
+    background:    lightblue;
+    width:         600px;
+    height:        600px;
+    border-radius: 50px;
+}
+
+.timer {
+    font-size: 20pt;
 }

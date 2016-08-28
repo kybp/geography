@@ -2,7 +2,7 @@
 import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { addQuestion, selectClickable } from './actions'
+import { addQuestion, selectClickable, stopTimer } from './actions'
 import Question, { UNANSWERED } from './Question'
 import { makePointString } from './Point'
 import { RUNNING } from './QuizDisplay'
@@ -33,6 +33,13 @@ class Clickable extends React.Component<Props, {}> {
     const onClick = () => {
       if (drawnState === UNANSWERED) {
         dispatch(selectClickable(id))
+
+        const right = document.querySelectorAll('.right').length
+        const wrong = document.querySelectorAll('.wrong').length
+        const total = document.querySelectorAll('.clickable').length
+        if (right + wrong + 1 === total) {
+          dispatch(stopTimer())
+        }
       }
     }
 

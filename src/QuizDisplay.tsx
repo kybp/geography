@@ -3,6 +3,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { loadQuiz } from './actions'
 import Question from './Question'
+import Timer from './Timer'
 
 export const NOT_STARTED = 'NOT_STARTED'
 export const LOADING     = 'LOADING'
@@ -31,7 +32,8 @@ class QuizDisplay extends React.Component<Props, {}> {
     if (phase === NOT_STARTED) {
       return (
         <div className="flex-column">
-          <h1 className="unselectable">Canadian Province Quiz</h1>
+          <h1 className="unselectable header">Canadian Province Quiz</h1>
+          <Timer />
 
           <div className="map" onClick={ () => dispatch(loadQuiz()) } style={{
             fontSize:      '20pt',
@@ -58,7 +60,8 @@ class QuizDisplay extends React.Component<Props, {}> {
 
     return (
       <div className="flex-column">
-        <h1 className="unselectable">{ message }</h1>
+        <h1 className="unselectable header">{ message }</h1>
+        <Timer />
         <svg viewBox="0 0 1285 1245" className="map">
           { this.props.children }
         </svg>

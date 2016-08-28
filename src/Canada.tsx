@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import Clickable from './Clickable'
-import { startQuiz } from './actions'
+import { startQuiz, startTimer } from './actions'
 
 interface Props {
   xOffset:   number,
@@ -13,6 +13,7 @@ interface Props {
 class Canada extends React.Component<Props, {}> {
   componentDidMount() {
     this.props.dispatch(startQuiz())
+    this.props.dispatch(startTimer())
   }
 
   render() {

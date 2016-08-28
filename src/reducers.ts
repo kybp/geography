@@ -4,6 +4,7 @@ import Question, { UNANSWERED } from './Question'
 import { NOT_STARTED, LOADING, RUNNING, FINISHED } from './QuizDisplay'
 import { ADD_QUESTION, SELECT_CLICKABLE } from './actions'
 import { LOAD_QUIZ, START_QUIZ } from './actions'
+import { START_TIMER, STOP_TIMER } from './actions'
 
 interface ProvinceQuizState {
   currentQuestion: Question,
@@ -55,4 +56,25 @@ const provinceQuiz = (state = initialQuizState, action: any) => {
   }
 }
 
-export default combineReducers({ provinceQuiz })
+interface TimerState {
+  startTime: number,
+  stopTime:  number,
+}
+
+const initialTimerState: TimerState = {
+  startTime: null,
+  stopTime:  null
+}
+
+const timer = (state = initialTimerState, action: any) => {
+  switch (action.type) {
+  case START_TIMER:
+    return Object.assign({}, state, { startTime: action.time })
+  case STOP_TIMER:
+    return Object.assign({}, state, { stopTime:  action.time })
+  default:
+    return state
+  }
+}
+
+export default combineReducers({ provinceQuiz, timer })
