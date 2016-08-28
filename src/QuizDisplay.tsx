@@ -11,10 +11,11 @@ export const FINISHED    = 'FINISHED'
 
 const getScore = () => {
   // document.querySelectorAll('.right').length gives 1 less than it should
-  const wrong = document.querySelectorAll('.wrong').length
-  const total = document.querySelectorAll('.clickable').length
-  const right = total - wrong
-  return right + '/' + total
+  const wrong   = document.querySelectorAll('.wrong').length
+  const total   = document.querySelectorAll('.clickable').length
+  const right   = total - wrong
+  const percent = (right * 100 / total).toFixed(2)
+  return right + '/' + total + ' (' + percent + '%)'
 }
 
 interface Props {
