@@ -2,9 +2,10 @@ import * as _ from 'lodash'
 import { combineReducers } from 'redux'
 import Question, { UNANSWERED } from './Question'
 import { NOT_STARTED, LOADING, RUNNING, FINISHED } from './QuizDisplay'
-import { ADD_QUESTION, SELECT_CLICKABLE } from './actions'
-import { LOAD_QUIZ, START_QUIZ } from './actions'
-import { START_TIMER, STOP_TIMER } from './actions'
+import { ADD_QUESTION, REMOVE_QUESTION } from './actions'
+import { SELECT_CLICKABLE } from './actions'
+import { LOAD_QUIZ, RESET_QUIZ, START_QUIZ } from './actions'
+import { RESET_TIMER, START_TIMER, STOP_TIMER } from './actions'
 
 interface ProvinceQuizState {
   currentQuestion: Question,
@@ -39,6 +40,13 @@ const provinceQuiz = (state = initialQuizState, action: any) => {
       otherQuestions: otherQuestions.concat(action.question)
     })
 
+  case REMOVE_QUESTION:
+    return Object.assign({}, state, {
+      otherQuestions: otherQuestions.filter((question) => (
+        question.elementId == action.id
+      ))
+    })
+
   case LOAD_QUIZ:
     return Object.assign({}, state, { phase: LOADING })
 
@@ -50,6 +58,16 @@ const provinceQuiz = (state = initialQuizState, action: any) => {
 
   case START_QUIZ:
     return nextQuestion(otherQuestions)
+
+  case RESET_QUIZ:
+    const allQuestions = currentQuestion
+      ? otherQuestions.concat(currentQuestion)
+      : otherQuestions
+    return {
+      currentQuestion: null,
+      otherQuestions:  allQuestions,
+      phase:           NOT_STARTED
+    }
 
   default:
     return state
@@ -68,6 +86,8 @@ const initialTimerState: TimerState = {
 
 const timer = (state = initialTimerState, action: any) => {
   switch (action.type) {
+  case RESET_TIMER:
+    return initialTimerState
   case START_TIMER:
     return Object.assign({}, state, { startTime: action.time })
   case STOP_TIMER:

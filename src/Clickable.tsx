@@ -1,8 +1,8 @@
-// -*- typescript -*-
 import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { addQuestion, selectClickable, stopTimer } from './actions'
+import { addQuestion, removeQuestion } from './actions'
+import { selectClickable, stopTimer } from './actions'
 import Question, { UNANSWERED } from './Question'
 import { makePointString } from './Point'
 import { RUNNING } from './QuizDisplay'
@@ -21,6 +21,10 @@ class Clickable extends React.Component<Props, {}> {
   componentWillMount() {
     const question = new Question(this.props.displayName, this.props.id)
     this.props.dispatch(addQuestion(question))
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(removeQuestion(this.props.id))
   }
 
   render() {
