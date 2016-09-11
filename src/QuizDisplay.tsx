@@ -1,4 +1,3 @@
-// -*- typescript -*-
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { loadQuiz, resetQuiz, resetTimer } from './actions'
@@ -26,12 +25,19 @@ interface Props {
 }
 
 const UnstartedQuiz = ({ dispatch }) => (
-  <div className="map" onClick={ () => dispatch(loadQuiz()) } style={{
+  <div className="unselectable map"
+       onClick={ () => dispatch(loadQuiz()) } style={{
     fontSize:      '20pt',
     lineHeight:    '600px',
     textAlign:     'center',
     verticalAlign: 'middle'
   }}>Click here to start quiz</div>
+)
+
+const ResetButton = ({ resetFunction }) => (
+  <div className="unselectable reset-button" onClick={ resetFunction }>
+    Reset
+  </div>
 )
 
 const StartedQuiz = ({ clickables, dispatch }) => {
@@ -41,13 +47,11 @@ const StartedQuiz = ({ clickables, dispatch }) => {
   }
 
   return (
-    <div>
-      <button onClick={ reset }>
-        Reset
-      </button>
+    <div className="flex-column">
       <svg className="map" viewBox="0 0 1285 1245">
         { clickables }
       </svg>
+      <ResetButton resetFunction={ reset } />
     </div>
   )
 }

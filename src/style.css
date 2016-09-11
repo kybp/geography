@@ -44,6 +44,15 @@ body {
     border-radius: 50px;
 }
 
+.reset-button {
+    background:     #e9be84;
+    border-radius:  6px;
+    text-align:     center;
+    vertical-align: middle;
+    padding:        10px 20px;
+    margin:         10px;
+}
+
 .timer {
     font-size: 20pt;
 }
