@@ -5,6 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "build": "webpack",
+    "build:dist": "webpack -p",
     "postinstall": "typings install"
   },
   "keywords": [],

@@ -10,3 +10,6 @@ In the root project directory, enter the commands:
     npm run build
 
 And then point your browser at `dist/index.html`
+
+To minify the output, replace `npm run build` with 
+`npm run build:dist`.
