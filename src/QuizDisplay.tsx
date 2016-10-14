@@ -3,11 +3,15 @@ import { connect } from 'react-redux'
 import { loadQuiz, resetQuiz, resetTimer } from './actions'
 import Question from './Question'
 import Timer from './Timer'
+import { ProvinceQuizState } from './reducers'
+import Clickable from './Clickable'
 
-export const NOT_STARTED = 'NOT_STARTED'
-export const LOADING     = 'LOADING'
-export const RUNNING     = 'RUNNING'
-export const FINISHED    = 'FINISHED'
+export enum QuizPhase {
+  NOT_STARTED,
+  LOADING,
+  RUNNING,
+  FINISHED
+}
 
 const getScore = () => {
   // document.querySelectorAll('.right').length gives 1 less than it should
@@ -18,13 +22,13 @@ const getScore = () => {
   return right + '/' + total + ' (' + percent + '%)'
 }
 
-interface Props {
-  phase?:          string,
+interface QuizDisplayProps {
+  phase?:          QuizPhase,
   targetProvince?: Question,
   dispatch?:       (action: any) => void,
 }
 
-const UnstartedQuiz = ({ dispatch }) => (
+const UnstartedQuiz = ({ dispatch }: { dispatch: any }) => (
   <div className="unselectable map"
        onClick={ () => dispatch(loadQuiz()) } style={{
     fontSize:      '20pt',
@@ -34,13 +38,15 @@ const UnstartedQuiz = ({ dispatch }) => (
   }}>Click here to start quiz</div>
 )
 
-const ResetButton = ({ resetFunction }) => (
+const ResetButton = ({ resetFunction }: { resetFunction: () => void }) => (
   <div className="unselectable reset-button" onClick={ resetFunction }>
     Reset
   </div>
 )
 
-const StartedQuiz = ({ clickables, dispatch }) => {
+const StartedQuiz =
+    ({ clickables, dispatch }:
+     { clickables: React.ReactNode, dispatch: (action: any) => void }) => {
   const reset = () => {
     dispatch(resetQuiz())
     dispatch(resetTimer())
@@ -56,7 +62,7 @@ const StartedQuiz = ({ clickables, dispatch }) => {
   )
 }
 
-class QuizDisplay extends React.Component<Props, {}> {
+class QuizDisplay extends React.Component<QuizDisplayProps, {}> {
   render() {
     const { targetProvince, phase, dispatch, children } = this.props
     const displayName = targetProvince ? targetProvince.displayName : null
@@ -70,9 +76,11 @@ class QuizDisplay extends React.Component<Props, {}> {
 
     return (
       <div className="flex-column">
-        <h1 className="unselectable header">{ messages[phase] }</h1>
+        <h1 className="unselectable header">
+          { messages[QuizPhase[phase]] }
+        </h1>
         <Timer />
-        { phase === NOT_STARTED
+        { phase === QuizPhase.NOT_STARTED
           ? <UnstartedQuiz dispatch={ dispatch } />
           : <StartedQuiz   dispatch={ dispatch } clickables={ children } />
         }
@@ -81,9 +89,13 @@ class QuizDisplay extends React.Component<Props, {}> {
   }
 }
 
-const mapStateToProps = ({ provinceQuiz }) => ({
-  targetProvince: provinceQuiz.currentQuestion,
-  phase:          provinceQuiz.phase
-})
+const mapStateToProps =
+    ({ provinceQuiz }: { provinceQuiz: ProvinceQuizState },
+     ownProps:         QuizDisplayProps): QuizDisplayProps => {
+  return Object.assign({}, ownProps, {
+    targetProvince: provinceQuiz.currentQuestion,
+    phase:          provinceQuiz.phase
+  })
+}
 
 export default connect(mapStateToProps)(QuizDisplay)

@@ -1,15 +1,12 @@
 # geography
 
-This is a small Typescript/Redux quiz on naming Canadian provinces.
+This is a small Typescript/Redux quiz on naming the Canadian
+provinces and territories.
 
 ## Building and Running
 
-In the root project directory, enter the commands:
-
-    npm install
-    npm run build
-
-And then point your browser at `dist/index.html`
-
-To minify the output, replace `npm run build` with 
-`npm run build:dist`.
+First, open a shell in the root project directory. Then, to install
+with npm, type `npm install`, or to install
+with [Yarn](https://yarnpkg.com), type `yarn`. Once the dependencies
+are installed, enter `npm run build` and then point your browser at
+`dist/index.html`.

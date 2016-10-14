@@ -15,6 +15,7 @@ module.exports = {
     extensions: ['', '.js', '.jsx', '.ts', '.tsx', '.css'],
     root: [sourceDir]
   },
+  devtool: 'source-map',
   module: {
     loaders: [{
       test:    /\.tsx?$/,

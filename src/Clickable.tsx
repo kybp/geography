@@ -5,10 +5,11 @@ import { addQuestion, removeQuestion } from './actions'
 import { selectClickable, stopTimer } from './actions'
 import Question, { UNANSWERED } from './Question'
 import { makePointString } from './Point'
-import { RUNNING } from './QuizDisplay'
+import { QuizPhase } from './QuizDisplay'
 import points from './points'
+import { ProvinceQuizState } from './reducers'
 
-interface Props {
+interface ClickableProps {
   id:          string,
   displayName: string,
   xOffset:     number,
@@ -17,7 +18,7 @@ interface Props {
   drawnState?: string,
 }
 
-class Clickable extends React.Component<Props, {}> {
+class Clickable extends React.Component<ClickableProps, {}> {
   componentWillMount() {
     const question = new Question(this.props.displayName, this.props.id)
     this.props.dispatch(addQuestion(question))
@@ -58,18 +59,25 @@ class Clickable extends React.Component<Props, {}> {
   }
 }
 
-const mapStateToProps = ({ provinceQuiz }, { id }) => {
-  if (provinceQuiz.phase === RUNNING) {
-    if (provinceQuiz.currentQuestion.elementId === id) {
-      return { drawnState: UNANSWERED }
+const mapStateToProps =
+    ({ provinceQuiz }: { provinceQuiz: ProvinceQuizState },
+     ownProps:         ClickableProps):
+    ClickableProps => {
+  let drawnState: { [key: string]: string }
+
+  if (provinceQuiz.phase === QuizPhase.RUNNING) {
+    if (provinceQuiz.currentQuestion.elementId === ownProps.id) {
+      return Object.assign({}, ownProps, { drawnState: UNANSWERED })
     }
   }
 
   const us = _.filter(provinceQuiz.otherQuestions, (question: Question) => (
-    question.elementId === id
+    question.elementId === ownProps.id
   ))[0]
 
-  return { drawnState: us === undefined ? null : us.drawnState }
+  return Object.assign({}, ownProps, {
+    drawnState: us === undefined ? null : us.drawnState
+  })
 }
 
 export default connect(mapStateToProps)(Clickable)

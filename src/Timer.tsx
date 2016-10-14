@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-interface Props {
+export interface TimerProps {
   startTime?: number,
   stopTime?:  number,
 }
 
-class Timer extends React.Component<Props, {}> {
+class Timer extends React.Component<TimerProps, {}> {
   private timer: number
 
   componentDidMount() {
@@ -25,7 +25,7 @@ class Timer extends React.Component<Props, {}> {
   }
 }
 
-const mapStateToProps = ({ timer }) => ({
+const mapStateToProps = ({ timer }: { timer: TimerProps }): TimerProps => ({
   startTime: timer.startTime,
   stopTime:  timer.stopTime
 })

@@ -2,18 +2,19 @@ import * as _ from 'lodash'
 import { combineReducers } from 'redux'
 import Actions from './actions'
 import Question, { UNANSWERED } from './Question'
-import { NOT_STARTED, LOADING, RUNNING, FINISHED } from './QuizDisplay'
+import { QuizPhase } from './QuizDisplay'
+import { TimerProps } from './Timer'
 
-interface ProvinceQuizState {
+export interface ProvinceQuizState {
   currentQuestion: Question,
   otherQuestions:  Question[],
-  phase:           string,
+  phase:           QuizPhase,
 }
 
 const initialQuizState: ProvinceQuizState = {
   currentQuestion: null,
   otherQuestions:  [],
-  phase: NOT_STARTED,
+  phase: QuizPhase.NOT_STARTED,
 }
 
 const nextQuestion = (questions: Question[] = []) => {
@@ -21,13 +22,15 @@ const nextQuestion = (questions: Question[] = []) => {
     question.drawnState === UNANSWERED
   ))
   const selected = _.sample(unanswered)
-  const phase = unanswered.length === 0 ? FINISHED : RUNNING
+  const phase =
+    unanswered.length === 0 ? QuizPhase.FINISHED : QuizPhase.RUNNING
   return { otherQuestions:  _.without(questions, selected),
            currentQuestion: selected,
            phase }
 }
 
-const provinceQuiz = (state = initialQuizState, action: any) => {
+const provinceQuiz = (state = initialQuizState, action: any):
+  ProvinceQuizState => {
   const { currentQuestion, otherQuestions } = state
 
   switch (action.type) {
@@ -45,7 +48,7 @@ const provinceQuiz = (state = initialQuizState, action: any) => {
     })
 
   case Actions.LOAD_QUIZ:
-    return Object.assign({}, state, { phase: LOADING })
+    return Object.assign({}, state, { phase: QuizPhase.LOADING })
 
   case Actions.SELECT_CLICKABLE:
     const wasCorrect = action.elementId === currentQuestion.elementId
@@ -63,7 +66,7 @@ const provinceQuiz = (state = initialQuizState, action: any) => {
     return {
       currentQuestion: null,
       otherQuestions:  allQuestions,
-      phase:           NOT_STARTED
+      phase:           QuizPhase.NOT_STARTED
     }
 
   default:
@@ -71,12 +74,7 @@ const provinceQuiz = (state = initialQuizState, action: any) => {
   }
 }
 
-interface TimerState {
-  startTime: number,
-  stopTime:  number,
-}
-
-const initialTimerState: TimerState = {
+const initialTimerState: TimerProps = {
   startTime: null,
   stopTime:  null
 }
