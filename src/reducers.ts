@@ -1,11 +1,8 @@
 import * as _ from 'lodash'
 import { combineReducers } from 'redux'
+import Actions from './actions'
 import Question, { UNANSWERED } from './Question'
 import { NOT_STARTED, LOADING, RUNNING, FINISHED } from './QuizDisplay'
-import { ADD_QUESTION, REMOVE_QUESTION } from './actions'
-import { SELECT_CLICKABLE } from './actions'
-import { LOAD_QUIZ, RESET_QUIZ, START_QUIZ } from './actions'
-import { RESET_TIMER, START_TIMER, STOP_TIMER } from './actions'
 
 interface ProvinceQuizState {
   currentQuestion: Question,
@@ -35,31 +32,31 @@ const provinceQuiz = (state = initialQuizState, action: any) => {
 
   switch (action.type) {
 
-  case ADD_QUESTION:
+  case Actions.ADD_QUESTION:
     return Object.assign({}, state, {
       otherQuestions: otherQuestions.concat(action.question)
     })
 
-  case REMOVE_QUESTION:
+  case Actions.REMOVE_QUESTION:
     return Object.assign({}, state, {
       otherQuestions: otherQuestions.filter((question) => (
         question.elementId == action.id
       ))
     })
 
-  case LOAD_QUIZ:
+  case Actions.LOAD_QUIZ:
     return Object.assign({}, state, { phase: LOADING })
 
-  case SELECT_CLICKABLE:
+  case Actions.SELECT_CLICKABLE:
     const wasCorrect = action.elementId === currentQuestion.elementId
     return nextQuestion(otherQuestions.concat(
       wasCorrect ? currentQuestion.getRight() : currentQuestion.getWrong()
     ))
 
-  case START_QUIZ:
+  case Actions.START_QUIZ:
     return nextQuestion(otherQuestions)
 
-  case RESET_QUIZ:
+  case Actions.RESET_QUIZ:
     const allQuestions = currentQuestion
       ? otherQuestions.concat(currentQuestion)
       : otherQuestions
@@ -86,11 +83,11 @@ const initialTimerState: TimerState = {
 
 const timer = (state = initialTimerState, action: any) => {
   switch (action.type) {
-  case RESET_TIMER:
+  case Actions.RESET_TIMER:
     return initialTimerState
-  case START_TIMER:
+  case Actions.START_TIMER:
     return Object.assign({}, state, { startTime: action.time })
-  case STOP_TIMER:
+  case Actions.STOP_TIMER:
     return Object.assign({}, state, { stopTime:  action.time })
   default:
     return state
