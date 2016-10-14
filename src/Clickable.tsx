@@ -3,7 +3,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { addQuestion, removeQuestion } from './actions'
 import { selectClickable, stopTimer } from './actions'
-import Question, { UNANSWERED } from './Question'
+import Question, { QuestionState } from './Question'
 import { makePointString } from './Point'
 import { QuizPhase } from './QuizDisplay'
 import points from './points'
@@ -15,7 +15,7 @@ interface ClickableProps {
   xOffset:     number,
   yOffset:     number,
   dispatch?:   (action: any) => void,
-  drawnState?: string,
+  drawnState?: QuestionState,
 }
 
 class Clickable extends React.Component<ClickableProps, {}> {
@@ -33,10 +33,10 @@ class Clickable extends React.Component<ClickableProps, {}> {
 
     if (drawnState === null) return null
 
-    const className  = "clickable " + drawnState.toLowerCase()
+    const className = "clickable " + QuestionState[drawnState].toLowerCase()
 
     const onClick = () => {
-      if (drawnState === UNANSWERED) {
+      if (drawnState === QuestionState.UNANSWERED) {
         dispatch(selectClickable(id))
 
         const right = document.querySelectorAll('.right').length
@@ -67,7 +67,9 @@ const mapStateToProps =
 
   if (provinceQuiz.phase === QuizPhase.RUNNING) {
     if (provinceQuiz.currentQuestion.elementId === ownProps.id) {
-      return Object.assign({}, ownProps, { drawnState: UNANSWERED })
+      return Object.assign({}, ownProps, {
+        drawnState: QuestionState.UNANSWERED
+      })
     }
   }
 

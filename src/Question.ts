@@ -1,19 +1,19 @@
-export const RIGHT      = 'RIGHT'
-export const WRONG      = 'WRONG'
-export const UNANSWERED = 'UNANSWERED'
+export enum QuestionState {
+  RIGHT, WRONG, UNANSWERED
+}
 
 class Question {
   constructor(public displayName: string,
               public elementId:   string,
-              public drawnState = UNANSWERED) {
+              public drawnState = QuestionState.UNANSWERED) {
   }
 
   getRight() {
-    return new Question(this.displayName, this.elementId, RIGHT)
+    return new Question(this.displayName, this.elementId, QuestionState.RIGHT)
   }
 
   getWrong() {
-    return new Question(this.displayName, this.elementId, WRONG)
+    return new Question(this.displayName, this.elementId, QuestionState.WRONG)
   }
 }
 

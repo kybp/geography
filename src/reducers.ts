@@ -1,7 +1,7 @@
 import * as _ from 'lodash'
 import { combineReducers } from 'redux'
 import Actions from './actions'
-import Question, { UNANSWERED } from './Question'
+import Question, { QuestionState } from './Question'
 import { QuizPhase } from './QuizDisplay'
 import { TimerProps } from './Timer'
 
@@ -19,7 +19,7 @@ const initialQuizState: ProvinceQuizState = {
 
 const nextQuestion = (questions: Question[] = []) => {
   const unanswered = _.filter(questions, (question: Question) => (
-    question.drawnState === UNANSWERED
+    question.drawnState === QuestionState.UNANSWERED
   ))
   const selected = _.sample(unanswered)
   const phase =
